@@ -1,9 +1,5 @@
 function HomePage() {
-  return (
-    <div>
-      <img src="../../static/love.jpg" style={{ width: 100 }} />
-    </div>
-  );
+  return <div>说说</div>;
 }
 
 export default HomePage;
