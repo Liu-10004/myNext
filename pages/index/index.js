@@ -1,5 +1,9 @@
 function HomePage() {
-  return <div>hello 刘冰群</div>;
+  return (
+    <div>
+      <img src="../../static/love.jpg" style={{ width: 100 }} />
+    </div>
+  );
 }
 
 export default HomePage;
