@@ -1,5 +1,5 @@
 function HomePage() {
-  return <div>Welcome to Next.js!</div>;
+  return <div>hello 刘冰群</div>;
 }
 
 export default HomePage;
