@@ -1,4 +1,4 @@
-@import '../../src/styles/base.less';
+// @import '../../src/styles/base.less';
 
 .back_ground {
   background: url('/static/mountains.jpg'),
@@ -13,4 +13,29 @@
     background: linear-gradient(rgb(19, 15, 33), rgb(34, 33, 63));
     height: 200px;
   }
+}
+.img {
+  width: 80px;
+  height: 80px;
+  border-radius: 80px;
+  align-self: center;
+  &:hover {
+    transition: 2s;
+    transform: scale(1.2) rotate(360deg);
+  }
+}
+
+.span {
+  margin-top: 200px;
+  transition: ease-in;
+  margin-right: 20px;
+}
+
+.footer {
+  position: fixed;
+  height: 80px;
+  width: 100%;
+  background-color: rgb(34, 33, 63);
+  bottom: 0;
+  left: 0;
 }

@@ -1,71 +1,44 @@
-const express = require('express');
+const Express = require('express');
 const next = require('next');
-
 const compression = require('compression');
 const dev = process.env.NODE_ENV !== 'production';
+const session = require('express-session');
+const { SomeModel, User, Articles } = require('./db.js');
 const app = next({ dev });
 const handle = app.getRequestHandler();
-let port = dev ? 3001 : 7005;
+let port = dev ? 3002 : 7005;
 console.log('Waiting ready on http://localhost ' + port + ' ……');
 
-// Pass in the absolute path to your robots.txt file
 app
   .prepare()
   .then(() => {
-    const server = express();
+    const server = new Express();
 
     if (!dev) {
       server.use(compression()); //gzip
     }
+    server.use(
+      session({
+        resave: true, //每次客户请求到服务器都会保存session
+        secret: 'lbq', // 用来加密 cookie
+        saveUninitialized: true //保存未初始化的session
+      })
+    );
+
+    console.log('come on');
     //文章二级页面
-    server.get('/p/:id', (req, res) => {
-      const actualPage = '/detail';
+    server.get('/home/articleDetails/:id', (req, res) => {
+      const actualPage = '/home/articleDetails';
       const queryParams = { id: req.params.id };
-      app.render(req, res, actualPage, queryParams);
-    });
-    //点击分页二级页面
-    server.get('/blog/:id', (req, res) => {
-      const actualPage = '/blog';
-      const queryParams = { id: req.params.id };
-      app.render(req, res, actualPage, queryParams);
-    });
-    //后台二级页面
-    server.get('/adminDetail/:id', (req, res) => {
-      const actualPage = '/adminDetail';
-      const queryParams = { id: req.params.id };
+      // console.log('catch', queryParams);
+      console.log(actualPage);
       app.render(req, res, actualPage, queryParams);
     });
 
-    const optionsPlain = {
-      root: __dirname + '/static/',
-      headers: {
-        'Content-Type': 'text/plain;charset=UTF-8'
-      }
-    };
-    const optionsHtml = {
-      root: __dirname + '/static/',
-      headers: {
-        'Content-Type': 'text/html;charset=UTF-8'
-      }
-    };
-    const optionsXml = {
-      root: __dirname + '/static/',
-      headers: {
-        'Content-Type': 'application/xml;charset=UTF-8'
-      }
-    };
-    server.get('/robots.txt', (req, res) =>
-      res.status(200).sendFile('robots.txt', optionsPlain)
-    );
-    server.get('/sitemap.html', (req, res) =>
-      res.status(200).sendFile('sitemap.html', optionsHtml)
-    );
-    server.get('/sitemap.xml', (req, res) =>
-      res.status(200).sendFile('sitemap.xml', optionsXml)
-    );
     server.get('*', (req, res) => {
       return handle(req, res);
     });
+
     server.listen(port, err => {
       if (err) throw err;
       console.log('> Ready on http://localhost ' + port);
