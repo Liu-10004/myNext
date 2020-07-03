@@ -13,7 +13,9 @@ export default class Layout extends Component {
           mode="horizontal"
           className="menu-container"
           selectedKeys={this.props.selectedKey}>
-          <Menu.Item key="mail">个人主页</Menu.Item>
+          <Menu.Item key="mail">
+            <a href="/">主页</a>
+          </Menu.Item>
           <Menu.Item key="articleList">
             <a href="/home/articleList">
               <Icon type="appstore" />

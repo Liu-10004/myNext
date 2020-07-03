@@ -5,7 +5,9 @@ let host = 'http://localhost:3003';
 let timer;
 let timeoutPromise = timeout => {
   return new Promise((resolve, reject) => {
-    controller = new window.AbortController();
+    controller = process.browser
+      ? new window.AbortController()
+      : { abort: () => {} };
     signal = controller.signal;
     timer = setTimeout(() => {
       // resolve(new Response('timeout', { status: 504, statusText: 'timeout ' }));

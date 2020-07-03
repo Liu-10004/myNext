@@ -18,7 +18,6 @@ class HomePage extends Component {
   @observable timer;
   @observable words = '';
   @observable loading = false;
-  static getStaticProps() {}
   componentDidMount() {
     console.log(window);
     this.checkIfLogin();
